@@ -1,7 +1,11 @@
 const Discord = require('discord.js');
 const { Client, GatewayIntentBits } = require('discord.js');
 const fs = require('fs')
-const {prefix, token, id, secret} = require('./config.json')
+require('dotenv').config()
+const prefix = process.env.PREFIX 
+const token = process.env.TOKEN 
+const id = process.env.ID 
+const secret = process.env.SECRET
 
 
 const client = new Client({ intents: [
@@ -10,6 +14,7 @@ const client = new Client({ intents: [
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.GuildMembers,] });
 client.commands = new Discord.Collection(); // Accessing commands collection
+
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles){
